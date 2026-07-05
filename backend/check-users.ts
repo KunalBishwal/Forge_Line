@@ -1,0 +1,1 @@
+import { DataSource } from 'typeorm'; import { dataSourceOptions } from './libs/database/src/data-source'; async function check() { const ds = new DataSource(dataSourceOptions); await ds.initialize(); const users = await ds.query('SELECT email FROM users'); console.log('USERS IN DB:', users); await ds.destroy(); } check();  

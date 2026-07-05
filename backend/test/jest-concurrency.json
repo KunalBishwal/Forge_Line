@@ -1,0 +1,15 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": "..",
+  "testRegex": "test/concurrency\\..*\\.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "testEnvironment": "node",
+  "moduleNameMapper": {
+    "^@forgeline/database(|/.*)$": "<rootDir>/libs/database/src/$1",
+    "^@forgeline/common(|/.*)$": "<rootDir>/libs/common/src/$1"
+  },
+  "testTimeout": 120000,
+  "setupFiles": ["dotenv/config"]
+}
