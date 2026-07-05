@@ -1,0 +1,182 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Forgeline brand tokens */
+  --color-void: #0a0912;
+  --color-void-2: #120f1c;
+  --color-ember: #ff7a45;
+  --color-ember-soft: #ff9d6e;
+  --color-cyan-flow: #4cdbff;
+  --color-crimson-fail: #ff4d5e;
+  --color-steel: #e9e7f2;
+  --color-steel-muted: #8b879c;
+  --color-glass-border: rgba(255, 255, 255, 0.08);
+
+  /* shadcn semantic tokens (dark, on-brand) */
+  --color-background: #0a0912;
+  --color-foreground: #e9e7f2;
+  --color-card: rgba(23, 21, 31, 0.55);
+  --color-card-foreground: #e9e7f2;
+  --color-popover: #16141f;
+  --color-popover-foreground: #e9e7f2;
+  --color-primary: #ff7a45;
+  --color-primary-foreground: #140a06;
+  --color-secondary: #1c1a26;
+  --color-secondary-foreground: #e9e7f2;
+  --color-muted: #1c1a26;
+  --color-muted-foreground: #8b879c;
+  --color-accent: #4cdbff;
+  --color-accent-foreground: #04141a;
+  --color-destructive: #ff4d5e;
+  --color-destructive-foreground: #ffffff;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-input: rgba(255, 255, 255, 0.12);
+  --color-ring: #ff7a45;
+
+  --radius-lg: 1rem;
+  --radius-md: 0.75rem;
+  --radius-sm: 0.5rem;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    background-color: var(--color-void);
+    color: var(--color-steel);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background: rgba(255, 122, 69, 0.3);
+  }
+
+  /* Focus visibility over glass */
+  :focus-visible {
+    outline: 2px solid var(--color-ember);
+    outline-offset: 2px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.16);
+  }
+}
+
+/* ---- Glass primitives ---- */
+@utility glass {
+  background: rgba(23, 21, 31, 0.55);
+  backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 10px 40px -12px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+@utility glass-deep {
+  background: rgba(15, 13, 22, 0.65);
+  backdrop-filter: blur(28px) saturate(150%);
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 24px 70px -20px rgba(0, 0, 0, 0.85),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+@utility grid-texture {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+@utility text-glow-ember {
+  text-shadow: 0 0 18px rgba(255, 122, 69, 0.55);
+}
+
+@utility text-glow-cyan {
+  text-shadow: 0 0 18px rgba(76, 219, 255, 0.55);
+}
+
+/* Gradient border-glow used on hover / active states */
+@utility glow-border {
+  position: relative;
+}
+
+@keyframes forge-blob {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(6%, -4%) scale(1.08);
+  }
+  66% {
+    transform: translate(-5%, 5%) scale(0.96);
+  }
+}
+
+@keyframes forge-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0.02) 30%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.02) 70%
+  );
+  background-size: 200% 100%;
+  animation: forge-shimmer 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
